@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View, Button, TouchableHighlight, ScrollView } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import React, { Component, useState } from 'react';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableOpacityBase } from 'react-native';
+import { ListItem, withTheme } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
+import Header from './components/header';
 
-export default class HomeScreen extends Component <{}> {
+export default class HomeScreen extends Component<{}>{
 
   state = {
-      property: [],
-      isLoading: false,
-      isRefreshing: false,
+    property: [],
+    isLoading: false,
+    isRefreshing: false,
   };
 
   handleRefresh = () => {
@@ -18,78 +20,85 @@ export default class HomeScreen extends Component <{}> {
     });
   };
 
-  /*handleLoadMore = () => {
-    this.setState({
-      page: this.state.page + 1
-    }, () => {
-      this.loadProperty();
-    });
-  };*/
-
-  componentDidMount = () => {
-
-    this.loadProperty();
-  };
-
   loadProperty = () => {
-    
+
     const { property } = this.state;
     this.setState({ isLoading: true });
 
     fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?postcode=ky11&listing_status=sale&page_size=50&api_key=bmm77zppverakbnfnmtyuky3')
-    .then( res => res.json())
-    .then ( res => {
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          property: res.listing,
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+
       this.setState({
-        property: res.listing
+
+        isRefreshing: false,
       });
-    })
-    .catch(err => {
-      console.error(err);
-    })
+  };
+
+  componentDidMount = () => {
+    this.loadProperty();
+  };
+
+  pressHandler = (id) => {
+
+    console.log(id);
+
   };
 
   render() {
-  
     const { property, isRefreshing } = this.state;
 
-return(
-      <FlatList 
-      style = { styles.item } 
-      data = { property } 
-      renderItem= {( { item } ) => (
-
-        <ListItem
-          title = {item.displayable_address}
-          subtitle = {item.price}
-          leftAvatar={{ source: {uri: item.image_150_113_url} }}
-        />
-      )}
-      keyExtractor = { i => i.listing_id }
-      refreshing = {isRefreshing}
-      onRefresh = {this.handleRefresh}
-      onEndReached = {this.loadProperty}
-      onEndReachedThreshold = {0}
+    return (
+      <View>
+        <Header/>
+      <View>
+      <FlatList
+      style={styles.list}
+        data={property}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => this.pressHandler(item.listing_id)}>
+          <ListItem
+            style={styles.item}
+            title={item.displayable_address}
+            subtitle={"£" + item.price}
+            leftAvatar={{ rounded: false, source: { uri: item.image_150_113_url } }}/>
+          </TouchableOpacity>
+        )}
+        keyExtractor={i => i.listing_id}
+        refreshing={isRefreshing}
+        onRefresh={this.handleRefresh}
       />
-    )
+      </View>
+      </View>
+    );
   }
 
 }
 
 const styles = StyleSheet.create({
 
-  scene: {
-    flex: 1,
-    paddingTop: 25,
+  list:{
+    backgroundColor: 'transparent',
   },
-
   container: {
-   flex: 1,
-   paddingTop: 22
+    backgroundColor: 'transparent',
+    paddingTop: 22,
+    paddingHorizontal: 20,
   },
-
   item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    flex: 1,
+    padding: 15,
+    marginTop: 16,
+    borderColor: '#bbb',
+    borderStyle: "solid",
+    borderBottomWidth: 2,
+    fontSize: 20,
   },
 })
