@@ -1,10 +1,18 @@
 import React, { Component, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity, TouchableOpacityBase } from 'react-native';
 import { ListItem, withTheme } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
-import Header from './components/header';
 
-export default class HomeScreen extends Component<{}>{
+import Navigator from './routes/homeStack';
+
+
+export default function App() {
+
+  return (
+      <Navigator />
+  );
+}
+
+/*export default class HomeScreen extends Component<{}>{
 
   state = {
     property: [],
@@ -101,4 +109,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     fontSize: 20,
   },
-})
+})*/
