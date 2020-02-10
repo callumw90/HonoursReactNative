@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- END OPTIONAL PERMISSIONS -->
 
+    <meta-data android:name="com.google.andoird.geo.API_KEY" android:value=""/>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"

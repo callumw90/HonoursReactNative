@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 import ItemDetails from '../screens/itemDetails';
 import HomeScreen from '../screens/home';
 import PropertyLocation from '../screens/propertyLocation';
+import FloorPlan from '../screens/floorPlan';
 
 const getActiveRouteState = function (route) {
     if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
@@ -26,6 +27,17 @@ const TabNavigator = createBottomTabNavigator({
             headerTintColor: 'white',
             headerBackTitle: 'Back',
             tabBarIcon: <Icon name='home'/>
+        }
+    },
+    FloorPlan: {
+        screen: FloorPlan,
+        title: 'Floor Plan',
+        navigationOptions: {
+            title: 'Floor Plan',
+            headerStyle: { backgroundColor: '#0099ff'},
+            headerTintColor: 'white',
+            HeaderTitle: 'Floor Plan',
+            tabBarIcon: <Icon name='image'/>
         }
     },
     PropertyLocation: {
