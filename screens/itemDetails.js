@@ -7,7 +7,7 @@ export default function ItemDetails({ navigation }) {
 
     var propertyDetails = navigation.getParam('property');
 
-    //console.log(navigation.getParam('property'));
+    //console.log(navigation);
 
     return (
         <View>

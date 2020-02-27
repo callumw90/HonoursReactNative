@@ -4,8 +4,6 @@ require_relative '../node_modules/react-native-unimodules/cocoapods'
 
 target 'honoursdProjectReact' do
 
-  rn_path = '../node_modules/react-native'
-  rn_maps_path = '../node_modules/react-native-maps'
   rnPrefix = "../node_modules/react-native"
   
   # React Native and its dependencies
@@ -37,23 +35,18 @@ target 'honoursdProjectReact' do
   pod 'DoubleConversion', :podspec => "#{rnPrefix}/third-party-podspecs/DoubleConversion.podspec"
   pod 'glog', :podspec => "#{rnPrefix}/third-party-podspecs/glog.podspec"
   pod 'Folly', :podspec => "#{rnPrefix}/third-party-podspecs/Folly.podspec"
-  pod 'react-native-maps', path: rn_maps_path
+
+  # Mapbox
+  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
 
   # Other native modules
   pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
   pod 'RNReanimated', :podspec => '../node_modules/react-native-reanimated/RNReanimated.podspec'
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  # Make also sure you have use_frameworks! enabled
+  use_frameworks!
+
   # Automatically detect installed unimodules
   use_unimodules!
-end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == 'react-native-google-maps'
-      target.build_configurations.each do |config|
-        config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
-      end
-    end
-  end
 end

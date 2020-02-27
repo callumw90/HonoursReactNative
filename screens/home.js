@@ -12,8 +12,11 @@ export default class Home extends Component {
   };
 
   handleRefresh = () => {
+
     this.setState({
+
       isRefreshing: true,
+
     }, () => {
       this.findLocation();
       this.loadProperty();
@@ -25,7 +28,6 @@ export default class Home extends Component {
     navigator.geolocation.getCurrentPosition(
       position => {
 
-        //const location = JSON.stringify(position);
 
         this.setState({ location: position }, () => {
 
@@ -33,15 +35,14 @@ export default class Home extends Component {
 
         });
 
-        //console.log(location);
       },
       error => Alert.alert(error.message),
 
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
-    //this.loadProperty();
   };
+
 
   loadProperty = () => {
 
@@ -50,19 +51,24 @@ export default class Home extends Component {
     const lat = this.state.location.coords.latitude;
     const long = this.state.location.coords.longitude;
 
-    console.log(lat, long);
-
     this.setState({ isLoading: true });
 
-    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&maximum_price=250000&api_key=bmm77zppverakbnfnmtyuky3')
+    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
       .then(res => res.json())
       .then(res => {
+
+
+
         this.setState({
+
           property: res.listing,
+
         });
       })
       .catch(err => {
-        console.error(err);
+
+        console.error(JSON.stringify(err));
+
       })
 
     this.setState({
@@ -71,9 +77,10 @@ export default class Home extends Component {
     });
   };
 
-  componentDidMount = () => {
+  UNSAFE_componentWillMount = () => {
 
     this.findLocation();
+
   };
 
   render() {
@@ -87,11 +94,11 @@ export default class Home extends Component {
             style={styles.list}
             data={property}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemDetails', { property: item })}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemDetails', { property: item, userLoc: this.state.location })}>
                 <ListItem
                   style={styles.item}
                   title={item.displayable_address}
-                  subtitle={ item.price != 0 ? "£" + item.price : <Text>Price on Request</Text>}
+                  subtitle={item.price != 0 ? "£" + item.price : <Text>Price on Request</Text>}
                   leftAvatar={{ rounded: false, source: { uri: item.image_150_113_url } }} />
               </TouchableOpacity>
             )}

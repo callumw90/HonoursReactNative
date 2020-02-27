@@ -8,6 +8,7 @@ import ItemDetails from '../screens/itemDetails';
 import HomeScreen from '../screens/home';
 import PropertyLocation from '../screens/propertyLocation';
 import FloorPlan from '../screens/floorPlan';
+import PropertyMap from '../screens/propertyMap';
 
 const getActiveRouteState = function (route) {
     if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
@@ -52,9 +53,32 @@ const TabNavigator = createBottomTabNavigator({
     },
 });
 
+const HomeTabNavi = createBottomTabNavigator({
+    PropertyList:{
+        screen: HomeScreen,
+        title: 'Property List',
+        navigationOptions:{
+            title: 'Property List',
+            headerStyle: { backgroundColor: '#0099ff'},
+            headerTintColor: 'white',
+            tabBarIcon: <Icon name='list' />
+        }
+    },
+    PropertyMap: {
+        screen: PropertyMap,
+        title: 'Property Map',
+        navigationOptions:{
+            title: 'Property Map',
+            headerStyle: { backgroundColor: '#0099ff'},
+            headerTintColor: 'white',
+            tabBarIcon: <Icon name='map' />
+        }
+    }
+});
+
 const NavStack = createStackNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: HomeTabNavi,
         navigationOptions: {
             title: 'Property List',
             headerStyle: { backgroundColor: '#0099ff'},
