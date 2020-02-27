@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, ScrollView, Dimensions, Image, Text } from 'react-native';
 
-const { width, height} = Dimensions.get('window');
+const { width, height} = Dimensions.get('window'); //gets the size of the current window
 
 
 class BackgroundCarousel extends React.Component {
@@ -17,10 +17,15 @@ class BackgroundCarousel extends React.Component {
     }
 
     setSelectedIndex = event => {
+        //width of the view size
         const viewSize = event.nativeEvent.layoutMeasurement.width;
+        
+        //current position of the scroll
         const contentOffset = event.nativeEvent.contentOffset.x;
 
+        //calculate the index of the image
         const selectedIndex = Math.floor(contentOffset / viewSize);
+        
         this.setState({ selectedIndex });
     }
 
