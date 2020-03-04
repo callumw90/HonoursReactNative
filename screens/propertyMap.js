@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
+import Sort from '../functions/sort'
 
 export default class PropertyMap extends Component {
 
@@ -36,7 +37,7 @@ export default class PropertyMap extends Component {
         const long = location.coords.longitude;
 
 
-        fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=5&listing_status=sale&page_size=10&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
+        fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
             .then(res => res.json())
             .then(res => {
 
@@ -88,8 +89,9 @@ export default class PropertyMap extends Component {
                                 latitude: marker.latitude,
                                 longitude: marker.longitude
                             }}
+                            key = {marker.displayable_address}
                             title = {marker.displayable_address}
-                            onMarkerPress={() => this.props.navigation.navigate('ItemDetails', { property: marker, userLoc: this.state.location })}
+                            onPress={() => this.props.navigation.navigate('ItemDetails', { property: marker, userLoc: this.state.location })}
                             />
                         ))}
                     </MapView>

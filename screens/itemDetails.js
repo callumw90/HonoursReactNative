@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import HTML from 'react-native-render-html';
 
 export default function ItemDetails({ navigation }) {
 
@@ -29,7 +29,7 @@ export default function ItemDetails({ navigation }) {
                 </View>
                 <View style={{ paddingTop: 10 }}>
                     <Text style={styles.heading}>Details:</Text>
-                    <Text style={styles.item}>£{propertyDetails.description}</Text>
+                    <HTML html={propertyDetails.description} />
                 </View>
             </ScrollView>
         </View>
@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
     },
     item: {
         padding: 15,
+        marginTop: 10,
         fontSize: 15,
     },
+    details: {
+
+    }
 });

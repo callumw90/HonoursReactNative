@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, View, TouchableOpacity, Alert, Text } from 'react-native';
+import { FlatList, StyleSheet, View, TouchableOpacity, Alert, Text, Button } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import Sort from '../functions/sort';
 
 export default class Home extends Component {
 
@@ -53,11 +54,9 @@ export default class Home extends Component {
 
     this.setState({ isLoading: true });
 
-    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
+    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
       .then(res => res.json())
       .then(res => {
-
-
 
         this.setState({
 
@@ -80,8 +79,21 @@ export default class Home extends Component {
   UNSAFE_componentWillMount = () => {
 
     this.findLocation();
-
   };
+
+  sortList = () => {
+
+    //console.log("Sorting list");
+    this.state.property = Sort(this.state.property, 0, this.state.property.length - 1);
+
+    this.forceUpdate();
+  }
+
+  // TODO change the navigation stack   
+ /* static navigationOptions = {
+
+    headerRight: () => <Button onPress={this.sortList} title="Order by Price" color="white" />
+}; */
 
   render() {
 
@@ -89,6 +101,7 @@ export default class Home extends Component {
 
     return (
       <View>
+         <Button style={styles.button} onPress={this.sortList} title="Order by Price" color="#0099ff"/>
         <View>
           <FlatList
             style={styles.list}
@@ -117,6 +130,9 @@ const styles = StyleSheet.create({
 
   list: {
     backgroundColor: 'white',
+  },
+  button: {
+    backgroundColor: '#0099ff',
   },
   container: {
     backgroundColor: 'transparent',

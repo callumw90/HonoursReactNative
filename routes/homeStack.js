@@ -9,6 +9,7 @@ import HomeScreen from '../screens/home';
 import PropertyLocation from '../screens/propertyLocation';
 import FloorPlan from '../screens/floorPlan';
 import PropertyMap from '../screens/propertyMap';
+import { Button, Text } from 'react-native';
 
 const getActiveRouteState = function (route) {
     if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
@@ -27,7 +28,7 @@ const TabNavigator = createBottomTabNavigator({
             headerStyle: { backgroundColor: '#0099ff'},
             headerTintColor: 'white',
             headerBackTitle: 'Back',
-            tabBarIcon: <Icon name='home'/>
+            tabBarIcon: <Icon name='home'/>,
         }
     },
     FloorPlan: {
@@ -61,8 +62,8 @@ const HomeTabNavi = createBottomTabNavigator({
             title: 'Property List',
             headerStyle: { backgroundColor: '#0099ff'},
             headerTintColor: 'white',
-            tabBarIcon: <Icon name='list' />
-        }
+            tabBarIcon: <Icon name='list' />,
+        },
     },
     PropertyMap: {
         screen: PropertyMap,
@@ -72,7 +73,7 @@ const HomeTabNavi = createBottomTabNavigator({
             headerStyle: { backgroundColor: '#0099ff'},
             headerTintColor: 'white',
             tabBarIcon: <Icon name='map' />
-        }
+        },
     }
 });
 
@@ -91,7 +92,7 @@ const NavStack = createStackNavigator({
             headerStyle: { backgroundColor: '#0099ff'},
             title: 'Property Details',
             headerTintColor: 'white',
-            headerBackTitle: 'Back'
+            headerBackTitle: 'Back',
         },
     },
 });
@@ -99,3 +100,5 @@ const NavStack = createStackNavigator({
 const App = createAppContainer(NavStack);
 
 export default App;
+
+//headerRight:  <Button onPress={HomeScreen.sort_list} title="Order by Price" color="white" />,
