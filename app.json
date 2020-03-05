@@ -26,7 +26,11 @@
     "ios": {
       "bundleIdentifier": "com.callum.honoursprojectreact",
       "buildNumber": "0.9.0",
-      "supportsTablet": true
+      "supportsTablet": false
+    },
+    "android":{
+      "package": "com.callum.honoursprojectreact",
+      "versionCode": 1
     },
     "entryPoint": "node_modules/expo/AppEntry.js"
   },

@@ -89,7 +89,7 @@ export default class PropertyMap extends Component {
                                 latitude: marker.latitude,
                                 longitude: marker.longitude
                             }}
-                            key = {marker.displayable_address}
+                            key = {marker.listing_id}
                             title = {marker.displayable_address}
                             onPress={() => this.props.navigation.navigate('ItemDetails', { property: marker, userLoc: this.state.location })}
                             />
