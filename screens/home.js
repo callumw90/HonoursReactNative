@@ -54,7 +54,7 @@ export default class Home extends Component {
 
     this.setState({ isLoading: true });
 
-    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
+    fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=INSERT_API_HERE')
       .then(res => res.json())
       .then(res => {
 
