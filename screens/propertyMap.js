@@ -37,7 +37,7 @@ export default class PropertyMap extends Component {
         const long = location.coords.longitude;
 
 
-        fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=bmm77zppverakbnfnmtyuky3')
+        fetch('https://api.zoopla.co.uk/api/v1/property_listings.json?latitude=' + lat + '&longitude=' + long + '&radius=10&listing_status=sale&page_size=50&description_style=1&order_by=age&api_key=')
             .then(res => res.json())
             .then(res => {
 
